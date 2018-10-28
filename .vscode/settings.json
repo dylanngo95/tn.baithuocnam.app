@@ -1,0 +1,10 @@
+{
+  "tslint.enable": true,
+  "tslint.configFile": "./tslint.json",
+  "tslint.nodePath": "./node_modules",
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "typescript.autoClosingTags": true,
+  "editor.codeLens": true,
+  "typescript.referencesCodeLens.enabled": true,
+  "editor.renderWhitespace": "boundary"
+}
