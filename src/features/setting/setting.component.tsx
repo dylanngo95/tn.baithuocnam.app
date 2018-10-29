@@ -10,8 +10,6 @@ export interface SettingState {
 export default class SettingComponent extends React.Component<SettingProps, SettingState> {
   constructor(props: SettingProps) {
     super(props);
-    this.state = {
-    };
   }
 
   public render() {

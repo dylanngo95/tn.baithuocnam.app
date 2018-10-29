@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = require("react");
 const react_native_1 = require("react-native");
-const navigationbar_1 = require("../../components/navigationbar");
+const navigationbar_react_native_1 = require("navigationbar-react-native");
 const ComponentLeft = () => {
     return (<react_native_1.View style={{ flex: 1, alignItems: 'flex-start' }}>
       <react_native_1.Image source={require('../../../assets/images/ic_search.png')} style={{ resizeMode: 'contain', width: 25, height: 25, marginLeft: 10, alignSelf: 'flex-start' }}/>
@@ -24,7 +24,7 @@ class MedicamentComponent extends React.Component {
     }
     render() {
         return (<react_native_1.View style={styles.container}>
-        <navigationbar_1.default componentLeft={<ComponentLeft />} componentCenter={<ComponentCenter />} componentRight={<ComponentRight />} navigationBarStyle={{ backgroundColor: '#ffffff' }} statusBarStyle={{ barStyle: 'dark-content', backgroundColor: '#ffffff' }}/>
+        <navigationbar_react_native_1.NavigationBar componentLeft={() => <ComponentLeft />} componentCenter={() => <ComponentCenter />} componentRight={() => <ComponentRight />} navigationBarStyle={{ backgroundColor: '#ffffff' }} statusBarStyle={{ barStyle: 'dark-content', backgroundColor: '#ffffff' }}/>
         <react_native_1.Text>Medicament Component</react_native_1.Text>
       </react_native_1.View>);
     }

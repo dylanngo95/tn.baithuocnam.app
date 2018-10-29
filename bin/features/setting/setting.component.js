@@ -5,7 +5,6 @@ const react_native_1 = require("react-native");
 class SettingComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
     }
     render() {
         return (<react_native_1.View>

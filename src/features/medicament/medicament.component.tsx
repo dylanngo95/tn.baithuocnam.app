@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
-import NavigationBar from '../../components/navigationbar';
+import { NavigationBar } from 'navigationbar-react-native';
 
 export interface MedicamentProps {
 }
@@ -50,9 +50,9 @@ export default class MedicamentComponent extends React.Component<MedicamentProps
     return (
       <View style={styles.container}>
         <NavigationBar
-          componentLeft={<ComponentLeft />}
-          componentCenter={<ComponentCenter />}
-          componentRight={<ComponentRight />}
+          componentLeft={() => <ComponentLeft />}
+          componentCenter={() => <ComponentCenter />}
+          componentRight={() => <ComponentRight />}
           navigationBarStyle={{ backgroundColor: '#ffffff' }}
           statusBarStyle={{ barStyle: 'dark-content', backgroundColor: '#ffffff' }}
         />
