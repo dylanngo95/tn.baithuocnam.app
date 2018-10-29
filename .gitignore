@@ -58,3 +58,4 @@ buck-out/
 # typescript
 bin/
 bin/**
+./bin/
