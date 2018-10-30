@@ -7,40 +7,7 @@ import {
 } from 'react-native';
 import ButtomCustom from '../../components/buttom-custom';
 import { CategoryService } from '../../data/local/services/CategoryService';
-import { Header } from 'native-extension';
-
-const ComponentLeft = () => {
-  return (
-    <View style={{ flex: 1, alignItems: 'flex-start' }} >
-      <Image
-        source={require('../../../assets/images/ic_search.png')}
-        style={{ resizeMode: 'contain', width: 25, height: 25, marginLeft: 10, alignSelf: 'flex-start' }}
-      />
-    </View>
-  );
-};
-
-const ComponentCenter = () => {
-  return (
-    <View style={{ flex: 1 }}>
-      <Image
-        source={require('../../../assets/images/ic_google.png')}
-        style={{ resizeMode: 'contain', width: 200, height: 35, alignSelf: 'center' }}
-      />
-    </View>
-  );
-};
-
-const ComponentRight = () => {
-  return (
-    <View style={{ flex: 1 }}>
-      <Image
-        source={require('../../../assets/images/ic_profile.png')}
-        style={{ resizeMode: 'contain', width: 35, height: 35, marginRight: 10, alignSelf: 'flex-end' }}
-      />
-    </View>
-  );
-};
+import HeaderComponent from '../../components/header.component';
 
 export interface HomeProps {
 }
@@ -54,6 +21,7 @@ export interface HomeState {
 export default class HomeComponent extends React.Component<HomeProps, HomeState> {
   constructor(props: HomeProps) {
     super(props);
+    console.log('home render');
     this.state = {
       categoryValue: '',
       categoryService:  new CategoryService(),
@@ -64,13 +32,7 @@ export default class HomeComponent extends React.Component<HomeProps, HomeState>
   public render() {
     return (
       <View style={styles.container}>
-          <Header
-            componentLeft={() => <ComponentLeft />  }
-            componentCenter={() => <ComponentCenter />  }
-            componentRight={() => <ComponentRight />  }
-            navigationBarStyle={{ backgroundColor: '#ff0000' }}
-            statusBarStyle={{ barStyle: 'dark-content', backgroundColor: '#ffffff' }}
-          />
+         <HeaderComponent />
          <Text>Category: {this.state.categoryValue}</Text>
          <TextInput
           style={styles.textInput}

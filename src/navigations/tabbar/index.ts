@@ -21,5 +21,7 @@ export const TabbarCustom = createBottomTabNavigator(
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
     },
+    lazy: false,
+    swipeEnabled: false,
   }
 );
