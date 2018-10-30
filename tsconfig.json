@@ -23,7 +23,7 @@
       "forceConsistentCasingInFileNames": true,
       "skipLibCheck": true,
       "skipDefaultLibCheck": true,
-      "declaration": false,
+      "declaration": true,
       "sourceMap": false,
   },
   "exclude": [
