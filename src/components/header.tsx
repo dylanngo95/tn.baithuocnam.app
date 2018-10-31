@@ -22,6 +22,7 @@ const MyStatusBar = (props: MyStatusBarProps) => (
 export interface HeaderProps {
   statusBarStyle: object;
   navigationBarStyle: object;
+  lineBottom?: object;
   componentLeft: any;
   componentCenter: any;
   componentRight: any;
@@ -39,6 +40,17 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
     },
     navigationBarStyle: {
       backgroundColor: '#215e79',
+    },
+    lineBottom: {
+      backgroundColor: '#CCCCCC',
+      height: 0.5,
+      shadowRadius: 5,
+      shadowOpacity: 0.8,
+      shadowColor: 'black',
+      shadowOffset: {
+        height: 2,
+        width: 0,
+      },
     },
     componentLeft: () => <View style={{ flex: 1 }} />,
     componentCenter: () => <View style={{ flex: 1 }} />,
@@ -63,6 +75,9 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
           <this.props.componentCenter/>
           <this.props.componentRight/>
         </View>
+        <View
+          style={this.props.lineBottom}
+        />
       </View>
     );
   }

@@ -3,9 +3,11 @@ import {
   View, StyleSheet,
   Text, TouchableOpacity,
   Image, FlatList, Easing,
+  ImageStyle,
 } from 'react-native';
 import HeaderComponent from '../../components/header.component';
-import Star from '../../components/starrating';
+import StarRating from '../../components/starrating';
+import { NavigationScreenProp } from 'react-navigation';
 
 const images = {
   starFilled: require('../../../assets/images/icon_star.png'),
@@ -13,15 +15,24 @@ const images = {
   share: require('../../../assets/images/ic_share.png'),
 };
 
-const ComponentLeft = () =>
-  <View style={{ flex: 1, alignItems: 'flex-start' }} >
+const ComponentLeft = ()  => (navigation: NavigationScreenProp<any, any>) => () =>
+  <TouchableOpacity
+    onPress={ () => {
+      // console.log('navigation');
+      // console.log(navigation);
+      // navigation.openDrawer();
+      // navigation.toggleDrawer();
+
+    }}
+    style={{ flex: 1, alignItems: 'flex-start' }} >
     <Image
       source={require('../../../assets/images/ic_menu.png')}
-      style={{ resizeMode: 'contain', width: 25, height: 25, marginLeft: 10, alignSelf: 'flex-start' }}
+      style={{ resizeMode: 'contain', width: 25, height: 25, marginLeft: 16, alignSelf: 'flex-start' }}
     />
-  </View>;
+  </TouchableOpacity>;
 
 export interface MedicamentProps {
+  navigation: NavigationScreenProp<any, any>;
 }
 
 export interface MedicamentState {
@@ -32,6 +43,8 @@ export interface MedicamentState {
 export default class MedicamentComponent extends React.Component<MedicamentProps, MedicamentState> {
   constructor(props: MedicamentProps) {
     super(props);
+    console.log('Medicament Component');
+    console.log(this.props.navigation);
     this.state = {
       contents: [
         {
@@ -65,8 +78,8 @@ export default class MedicamentComponent extends React.Component<MedicamentProps
           Đu đủ chín chứa khoảng 90% nước, 13% đường, không có tinh bột, có nhiều carotenoit acid hữu cơ, vitamin: A, B, C, 0,9% chất béo, xenluloz (0,5%), canxi, photpho, magiê, sắt, thiamin, riboflavin.
           Một kết quả nghiên cứu khác cho thấy, trong 100g đu đủ có 74 - 80mg vitamin C (vitamin chủ yếu trong đu đủ), caroten (tiền vitamine A) 500 - 1.250UI. Ngoài ra, còn có các vitamin B1, B2, các acid gây men, các khoáng chất như: kali (179mg), canxi, magiê, sắt và kẽm.`,
           image: 'https://cdn.24h.com.vn/upload/4-2018/images/2018-10-22/Ly-do-de-ban-nen-an-du-du-moi-ngay-du-du-1540170021-210-width640height384.jpg',
-          star: 4.5,
-          author: 'Tinh Ngo',
+          star: 3,
+          author: 'Tinh Daik HD',
           createDate: 0,
           updateDate: 0,
         },
@@ -79,7 +92,7 @@ export default class MedicamentComponent extends React.Component<MedicamentProps
           Tổ yến chứa 42,8 - 54,9% protein; nhiều glucose; các acid amin cần thiết khó thay thế: cystein, phenyllamin, tyrosin...; các vitamin B, C, E, PP; các muối natri, sắt, phosphor và các nguyên tố vi lượng. Một số nghiên cứu mới đây cho thấy: yến sào có tác dụng ích khí, cường dương, kích dục, có lợi cho phổi và thận, rất tốt cho da, tăng hấp thu các chất dinh dưỡng và kích thích sự phân chia các tế bào của hệ miễn dịch. Do đó, yến sào được cho là thuốc “cải lão hoàng đồng”, làm chậm quá trình lão hóa.`,
           image: 'https://cdn.24h.com.vn/upload/4-2018/images/2018-10-16/To-yen-giup-cai-lao-hoan-dong-to-yen-1539674030-747-width500height374.jpg',
           star: 4.5,
-          author: 'Tinh Ngo',
+          author: 'Hai Linh Nguyen',
           createDate: 0,
           updateDate: 0,
         },
@@ -90,7 +103,7 @@ export default class MedicamentComponent extends React.Component<MedicamentProps
           contents: `Y học cổ truyền gọi sỏi tiết niệu là thạch lâm, sa lâm (sỏi nhỏ gọi là sa lâm, sỏi to gọi là thạch lâm). Nguyên nhân chủ yếu là do chứng thấp nhiệt  làm nước tiểu bị ứ đọng lại thành sỏi. Y học cổ truyền chia sỏi tiết niệu làm nhiều thể khác nhau như: thấp nhiệt, can uất khí trệ, thận hư. Sau đây là một số bài thuốc chữa sỏi niệu kèm thận hư.`,
           image: 'https://cdn.24h.com.vn/upload/3-2018/images/2018-09-06/Bai-thuoc-tri-soi-tiet-nieu-moc_thong-1536216698-858-width450height337.jpg',
           star: 4.5,
-          author: 'Tinh Ngo',
+          author: 'Tinh Ngo Doan',
           createDate: 0,
           updateDate: 0,
         },
@@ -113,54 +126,38 @@ export default class MedicamentComponent extends React.Component<MedicamentProps
     return (
       <View style={styles.container}>
         <HeaderComponent
-          componentLeft={ComponentLeft}
+          componentLeft={ComponentLeft()(this.props.navigation)}
         />
         <FlatList
           data={this.state.contents}
           keyExtractor={(item, index) => (item as any).id.toString()}
+          contentContainerStyle={{
+            paddingBottom: 25,
+          }}
           renderItem={({ item }) => {
             return (
-              <View
-                style={{
-                  marginLeft: 10,
-                  marginRight: 10,
-                  marginTop: 10,
-                }}
-              >
-                <View
-                  style={{
-                    height: 100,
-                    flexDirection: 'row', alignItems: 'center',
+              <View style={styles.cell_container} >
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.navigation.openDrawer();
                   }}
-                >
-                  <View
-                    style={{ flexDirection: 'column', width: 1, flexGrow: 1 }}
-                  >
+                  style={styles.cell_view_top} >
+                  <View style={styles.cell_view_top_container} >
                     <Text
-                      style={{
-                        margin: 5,
-                        fontSize: 13,
-                        fontWeight: '600',
-                        fontFamily: 'arial',
-                        height: 55,
-                      }}
+                      style={styles.cell_view_top_container_text}
                       numberOfLines={3}
                     >{(item as any).title}
                     </Text>
                   </View>
                   <Image
                     borderRadius={10}
-                    style={{ width: 80, height: 80, resizeMode: 'cover' }}
+                    style={styles.cell_view_top_container_image as ImageStyle}
                     source={{ uri: (item as any).image }} />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                  }}
-                >
-                  <Star
+                </TouchableOpacity>
+                <View style={styles.cell_view_bottom} >
+                  <StarRating
                     max={5}
-                    initial={5}
+                    initial={(item as any).star}
                     onChange={(rating: number) => console.log(rating)}
                     selectedStar={images.starFilled}
                     unselectedStar={images.starUnfilled}
@@ -171,42 +168,28 @@ export default class MedicamentComponent extends React.Component<MedicamentProps
                     stagger={50}
                     maxScale={1.6}
                     starStyle={{
-                      width: 11,
-                      height: 11,
+                      width: 13,
+                      height: 13,
                       margin: 1,
                     }}
                     editable={false}
                   />
-                  <View style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                  }}>
+                  <View style={styles.cell_view_bottom_right}>
                     <Text
-                      style={{
-                        fontSize: 11,
-                        marginLeft: 5,
-                        fontFamily: 'arial',
-                        marginRight: 5,
-                        fontWeight: '600',
-                      }}
+                      style={styles.cell_view_bottom_right_text}
                     >{(item as any).author}
                     </Text>
-                    <Image
-                      style={{
-                        width: 13, height: 13,
-                        marginRight: 5,
-                       }}
-                      source={images.share}
-                    />
+                    <TouchableOpacity>
+                      <Image
+                        resizeMode='contain'
+                        style={styles.cell_view_bottom_right_image as ImageStyle}
+                        source={images.share}
+                      />
+                    </TouchableOpacity>
                   </View>
                 </View>
                 <View
-                  style={{
-                    backgroundColor: '#CCCCCC',
-                    height: 1,
-                    marginTop: 5,
-                  }}
+                  style={styles.cell_bottom_line}
                 />
               </View>
             );
@@ -217,9 +200,62 @@ export default class MedicamentComponent extends React.Component<MedicamentProps
   }
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+  },
+  cell_container: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 5,
+  },
+  cell_view_top: {
+    height: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  cell_view_top_container: {
+    flexDirection: 'column',
+    width: 1, flexGrow: 1,
+  },
+  cell_view_top_container_text: {
+    margin: 5,
+    fontSize: 14,
+    fontWeight: '600',
+    fontFamily: 'arial',
+    height: 55,
+  },
+  cell_view_top_container_image: {
+    width: 80,
+    height: 80,
+    resizeMode: 'cover',
+  },
+  cell_view_bottom: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  cell_view_bottom_right: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  cell_view_bottom_right_text: {
+    fontSize: 13,
+    marginLeft: 5,
+    fontFamily: 'arial',
+    marginRight: 5,
+    fontWeight: '600',
+  },
+  cell_view_bottom_right_image: {
+    width: 20, height: 20,
+    marginRight: 5,
+  },
+  cell_bottom_line: {
+    backgroundColor: '#CCCCCC',
+    height: 0.5,
+    marginTop: 7,
   },
 });

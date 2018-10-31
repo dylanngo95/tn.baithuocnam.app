@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import { Header } from 'native-extension';
+import Header from './header';
 
 const ComponentLeft = () =>
     <View style={{ flex: 1, alignItems: 'flex-start' }} >
         <Image
             source={require('../../assets/images/ic_search.png')}
-            style={{ resizeMode: 'contain', width: 25, height: 25, marginLeft: 10, alignSelf: 'flex-start' }}
+            style={{ resizeMode: 'contain', width: 25, height: 25, marginLeft: 16, alignSelf: 'flex-start' }}
         />
     </View>;
 
@@ -23,7 +23,7 @@ const ComponentRight = () =>
     <View style={{ flex: 1 }}>
         <Image
             source={require('../../assets/images/ic_profile.png')}
-            style={{ resizeMode: 'contain', width: 35, height: 35, marginRight: 10, alignSelf: 'flex-end' }}
+            style={{ resizeMode: 'contain', width: 35, height: 35, marginRight: 16, alignSelf: 'flex-end' }}
         />
     </View>;
 
