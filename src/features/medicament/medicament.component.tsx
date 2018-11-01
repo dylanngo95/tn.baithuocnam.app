@@ -7,7 +7,9 @@ import {
 } from 'react-native';
 import HeaderComponent from '../../components/header.component';
 import StarRating from '../../components/starrating';
-import { NavigationScreenProp } from 'react-navigation';
+import {
+  NavigationScreenProp,
+} from 'react-navigation';
 
 const images = {
   starFilled: require('../../../assets/images/icon_star.png'),
@@ -15,14 +17,10 @@ const images = {
   share: require('../../../assets/images/ic_share.png'),
 };
 
-const ComponentLeft = ()  => (navigation: NavigationScreenProp<any, any>) => () =>
+const ComponentLeft = () => (navigation: NavigationScreenProp<any, any>) => () =>
   <TouchableOpacity
-    onPress={ () => {
-      // console.log('navigation');
-      // console.log(navigation);
-      // navigation.openDrawer();
-      // navigation.toggleDrawer();
-
+    onPress={() => {
+      navigation.openDrawer();
     }}
     style={{ flex: 1, alignItems: 'flex-start' }} >
     <Image
@@ -139,7 +137,6 @@ export default class MedicamentComponent extends React.Component<MedicamentProps
               <View style={styles.cell_container} >
                 <TouchableOpacity
                   onPress={() => {
-                    this.props.navigation.openDrawer();
                   }}
                   style={styles.cell_view_top} >
                   <View style={styles.cell_view_top_container} >

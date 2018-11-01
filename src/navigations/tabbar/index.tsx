@@ -3,7 +3,7 @@ import { createBottomTabNavigator, DrawerNavigator } from 'react-navigation';
 import HomeComponent from '../../features/home/home.component';
 import MedicamentComponent from '../../features/medicament/medicament.component';
 import SettingComponent from '../../features/setting/setting.component';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, StyleProp, ImageStyle } from 'react-native';
 import { DrawerMedicament } from '../../features/medicament/drawer';
 
 export const images = {
@@ -32,8 +32,7 @@ export const TabbarCustom = createBottomTabNavigator(
       scrollEnabled: false,
       activeTintColor: 'blue',
       inactiveTintColor: 'gray',
-      // tslint:disable-next-line:trailing-comma
-      labelStyle: { fontSize: 12, fontWeight: 'normal'}
+      labelStyle: { fontSize: 12, fontWeight: 'normal'},
     },
     animationEnabled: false,
     lazy: false,
@@ -43,20 +42,20 @@ export const TabbarCustom = createBottomTabNavigator(
         const { routeName } = navigation.state;
         if (routeName === 'Home') {
             return <Image
-              style={{ width: 25, height: 25 }}
+              style={{ width: 25, height: 25, tintColor: tintColor } as StyleProp<ImageStyle>}
               source={images.public}/>;
         } else if (routeName === 'Medicament') {
           return <Image
-            style={{ width: 25, height: 25 }}
+            style={{ width: 25, height: 25, tintColor: tintColor } as StyleProp<ImageStyle>}
             source={images.language}/>;
         } else if (routeName === 'Setting') {
           return <Image
-            style={{ width: 25, height: 25 }}
+            style={{ width: 25, height: 25, tintColor: tintColor } as StyleProp<ImageStyle>}
             source={images.setting}/>;
         }
         return <Image
-          style={{ width: 25, height: 25 }}
-         source={images.public} />;
+          style={{ width: 25, height: 25, tintColor: tintColor } as StyleProp<ImageStyle>}
+          source={images.public} />;
       },
     }),
   }
