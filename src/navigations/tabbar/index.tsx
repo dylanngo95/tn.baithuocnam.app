@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { createBottomTabNavigator, DrawerNavigator } from 'react-navigation';
+import { Image, StyleSheet, StyleProp, ImageStyle } from 'react-native';
+
 import HomeComponent from '../../features/home/home.component';
 import MedicamentComponent from '../../features/medicament/medicament.component';
 import SettingComponent from '../../features/setting/setting.component';
-import { Image, StyleSheet, StyleProp, ImageStyle } from 'react-native';
 import { DrawerMedicament } from '../../features/medicament/drawer';
+import MedicamentDetailComponent from '../../features/MedicamentDetail/MedicamentDetail';
 
 export const images = {
   language: require('../../../assets/images/ic_language.png'),
@@ -16,7 +18,7 @@ export const images = {
 export const TabbarCustom = createBottomTabNavigator(
   {
     Home: {
-      screen: HomeComponent,
+      screen: MedicamentDetailComponent,
     },
     Medicament: {
       screen: DrawerMedicament,
@@ -26,7 +28,7 @@ export const TabbarCustom = createBottomTabNavigator(
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Medicament',
     tabBarPosition: 'bottom',
     tabBarOptions: {
       scrollEnabled: false,

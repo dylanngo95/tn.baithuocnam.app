@@ -8,7 +8,7 @@
     "android": "react-native run-android",
     "test": "jest",
     "b": "vnrm ./bin && npm run copy && tsc --watch",
-    "copy": "cpx node_duplicate/react-native-drawer-layout-polyfill node_modules/react-native-drawer-layout-polyfill",
+    "copy": "cpx node_duplicate/ node_duplicate/test",
     "build": "tsc --declarationMap",
     "tslint": "tslint .src"
   },

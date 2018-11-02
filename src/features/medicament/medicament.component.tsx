@@ -10,6 +10,8 @@ import StarRating from '../../components/starrating';
 import {
   NavigationScreenProp,
 } from 'react-navigation';
+import ImagePlaceHolder from '../../components/image-placeholder';
+
 
 const images = {
   starFilled: require('../../../assets/images/icon_star.png'),
@@ -146,10 +148,14 @@ export default class MedicamentComponent extends React.Component<MedicamentProps
                     >{(item as any).title}
                     </Text>
                   </View>
-                  <Image
-                    borderRadius={10}
-                    style={styles.cell_view_top_container_image as ImageStyle}
-                    source={{ uri: (item as any).image }} />
+                  <ImagePlaceHolder
+                    width={80}
+                    height={80}
+                    imageOprions={{
+                      uri: (item as any).image as string,
+                      borderRadius: 10,
+                    }}
+                  />
                 </TouchableOpacity>
                 <View style={styles.cell_view_bottom} >
                   <StarRating
