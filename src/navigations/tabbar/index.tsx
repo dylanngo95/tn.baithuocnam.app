@@ -6,7 +6,7 @@ import HomeComponent from '../../features/home/home.component';
 import MedicamentComponent from '../../features/medicament/medicament.component';
 import SettingComponent from '../../features/setting/setting.component';
 import { DrawerMedicament } from '../../features/medicament/drawer';
-import MedicamentDetailComponent from '../../features/MedicamentDetail/MedicamentDetail';
+import MedicamentDetailComponent from '../../features/medicamentdetail/medicamentdetail';
 
 export const images = {
   language: require('../../../assets/images/ic_language.png'),

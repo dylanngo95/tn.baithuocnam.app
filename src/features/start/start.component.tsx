@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RootStack } from '../../navigations';
+import Splash from '../splash/splash.component';
 
 export interface StartProps {
 }
@@ -16,7 +17,7 @@ export default class StartComponent extends React.Component<StartProps, StartSta
 
   public render() {
     return (
-      <RootStack />
+      <Splash />
     );
   }
 }

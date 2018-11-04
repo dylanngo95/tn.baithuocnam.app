@@ -7,25 +7,27 @@ export class Content {
     primaryKey: 'id',
     properties: {
       id: 'int',
-      categoryId: 'string',
+      categories: 'string',
       title: 'string',
       content: 'string',
       description: 'string?',
       image: 'string',
       rate: 'double',
-      createDate: 'double',
-      updateDate: 'double',
+      auth: 'string',
+      create: 'double',
+      update: 'double',
     },
   };
 
   public id: number;
-  public categoryId: string;
+  public categories: string;
   public title: string;
   public content: string;
   public description?: string | '';
   public image: string;
   public rate: number;
-  public createDate: number;
-  public updateDate: number;
+  public auth: string;
+  public create: number;
+  public update: number;
 
 }

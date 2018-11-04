@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android",
     "test": "jest",
-    "b": "vnrm ./bin && npm run copy && tsc --watch",
+    "b": "vnrm ./bin && tsc --watch",
     "copy": "cpx node_duplicate/ node_duplicate/test",
     "build": "tsc --declarationMap",
     "tslint": "tslint .src"
@@ -20,7 +20,8 @@
     "react-navigation": "^2.18.2",
     "react-redux": "^5.0.7",
     "realm": "2.16.0",
-    "redux": "^4.0.0"
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.2"
   },
   "devDependencies": {
     "@types/react-native": "^0.57.7",

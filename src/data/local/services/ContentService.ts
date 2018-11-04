@@ -29,14 +29,14 @@ export class ContentService {
     const contents = RealmDb.objects(Content.schema.name).filtered('id=' + content.id);
     if (contents) {
       RealmDb.write(() => {
-        (<Content>contents[0]).categoryId = content.categoryId;
+        (<Content>contents[0]).categories = content.categories;
         (<Content>contents[0]).title = content.title;
         (<Content>contents[0]).content = content.content;
         (<Content>contents[0]).description = content.description;
         (<Content>contents[0]).image = content.image;
         (<Content>contents[0]).rate = content.rate;
-        (<Content>contents[0]).createDate = content.createDate;
-        (<Content>contents[0]).updateDate = content.updateDate;
+        (<Content>contents[0]).create = content.create;
+        (<Content>contents[0]).update = content.update;
       });
     }
   }

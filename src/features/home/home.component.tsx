@@ -53,8 +53,8 @@ export default class HomeComponent extends React.Component<HomeProps, HomeState>
               index: Math.floor(Math.random() * 100),
               name: this.state.categoryValue,
               description: 'category',
-              createDate: time,
-              updateDate: time,
+              create: time,
+              update: time,
             });
           }}
          />

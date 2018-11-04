@@ -9,8 +9,8 @@ export class Category {
       index: 'int',
       name: 'string',
       description: 'string?',
-      createDate: 'double',
-      updateDate: 'double',
+      create: 'double',
+      update: 'double',
     },
   };
 
@@ -18,7 +18,7 @@ export class Category {
   public index: number;
   public name: string;
   public description?: string | '';
-  public createDate: number;
-  public updateDate: number;
+  public create: number;
+  public update: number;
 
 }
