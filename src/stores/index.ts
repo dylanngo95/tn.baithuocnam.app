@@ -5,6 +5,7 @@ import rootSaga from './saga';
 import { HomeReducer } from '../features/home/home.reducer';
 import { SplashReducer } from '../features/splash/splash.reducer';
 import { DownloadReducer } from '../features/download/download.reducer';
+import { MedicamentReducer } from '../features/medicament/medicament.reducer';
 
 const sagaMiddeware = createSagaMiddeware();
 
@@ -13,6 +14,7 @@ const store = createStore(
     home: HomeReducer,
     splash: SplashReducer,
     download: DownloadReducer,
+    medicament: MedicamentReducer,
   }),
   applyMiddleware(sagaMiddeware)
 );

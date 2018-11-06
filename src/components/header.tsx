@@ -22,7 +22,7 @@ const MyStatusBar = (props: MyStatusBarProps) => (
 export interface HeaderProps {
   statusBarStyle: object;
   navigationBarStyle: object;
-  lineBottom?: object;
+  lineBottomView?: object;
   componentLeft: any;
   componentCenter: any;
   componentRight: any;
@@ -41,7 +41,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
     navigationBarStyle: {
       backgroundColor: '#215e79',
     },
-    lineBottom: {
+    lineBottomView: {
       backgroundColor: '#CCCCCC',
       height: 0.5,
       shadowRadius: 5,
@@ -76,7 +76,7 @@ export default class Header extends React.Component<HeaderProps, HeaderState> {
           <this.props.componentRight/>
         </View>
         <View
-          style={this.props.lineBottom}
+          style={this.props.lineBottomView}
         />
       </View>
     );

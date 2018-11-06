@@ -13,16 +13,15 @@ import { RootStack } from '../../navigations';
 
 const Splash = () => {
   return (
-    <ImageBackground
-      source={require('../../../assets/backgrounds/img-glass.png')}
+    <View
       style={styles.container}>
       <StatusBar
         translucent={true}
         backgroundColor='transparent'
-        barStyle='light-content'
+        barStyle='dark-content'
       />
-      <Text style={{ color: 'white', fontSize: 18 }}>Slpash Screen</Text>
-    </ImageBackground>
+      <Text style={{ color: 'black', fontSize: 18 }}>Slpash Screen</Text>
+    </View>
   );
 };
 
@@ -54,7 +53,7 @@ class SplashComponent extends React.Component<SplashProps, SplashState> {
   public componentDidMount() {
     setTimeout(() => {
       this.props.checkDataLocalStart();
-    }, 2000);
+    }, 1000);
   }
 
   public render() {
@@ -74,5 +73,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
   },
 });

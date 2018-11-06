@@ -1,23 +1,12 @@
 import * as React from 'react';
-import { RootStack } from '../../navigations';
+import { View, Text } from 'react-native';
 import Splash from '../splash/splash.component';
 
-export interface StartProps {
+export interface AppProps {
 }
 
-export interface StartState {
-}
-
-export default class StartComponent extends React.Component<StartProps, StartState> {
-  constructor(props: StartProps) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  public render() {
+export default function App (props: AppProps) {
     return (
-      <Splash />
+     <Splash/>
     );
-  }
 }

@@ -49,7 +49,7 @@ export default class ImagePlaceHolder extends React.Component<ImagePlaceHolderPr
           }}
           source={{
             uri: this.props.imageOprions.uri,
-            cache: 'default',
+            cache: 'force-cache',
           }}
           onError={() => {
             // console.warn('error');

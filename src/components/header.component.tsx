@@ -32,6 +32,8 @@ export interface HeaderProps {
     componentLeft?: any;
     componentCenter?: any;
     componentRight?: any;
+
+    lineBottomView?: any;
 }
 
 export interface HeaderState {
@@ -59,6 +61,7 @@ export default class HeaderComponent extends React.PureComponent<HeaderProps, He
                 componentRight={this.state.componentRight}
                 navigationBarStyle={{ backgroundColor: '#ffffff' }}
                 statusBarStyle={{ barStyle: 'dark-content', backgroundColor: '#ffffff' }}
+                lineBottomView={this.props.lineBottomView ? this.props.lineBottomView : <View/> }
             />
         );
     }

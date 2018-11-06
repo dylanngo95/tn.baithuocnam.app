@@ -6,7 +6,6 @@ import HomeComponent from '../../features/home/home.component';
 import MedicamentComponent from '../../features/medicament/medicament.component';
 import SettingComponent from '../../features/setting/setting.component';
 import { DrawerMedicament } from '../../features/medicament/drawer';
-import MedicamentDetailComponent from '../../features/medicamentdetail/medicamentdetail';
 
 export const images = {
   language: require('../../../assets/images/ic_language.png'),
@@ -18,7 +17,7 @@ export const images = {
 export const TabbarCustom = createBottomTabNavigator(
   {
     Home: {
-      screen: MedicamentDetailComponent,
+      screen: HomeComponent,
     },
     Medicament: {
       screen: DrawerMedicament,
@@ -37,8 +36,7 @@ export const TabbarCustom = createBottomTabNavigator(
       labelStyle: { fontSize: 12, fontWeight: 'normal'},
     },
     animationEnabled: false,
-    lazy: false,
-    swipeEnabled: false,
+    lazy: true,
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;

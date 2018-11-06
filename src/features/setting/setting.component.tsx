@@ -38,14 +38,14 @@ export default class SettingComponent extends React.Component<SettingProps, Sett
       <View style = {{
         flex: 1,
       }}>
-        <ImagePlaceHolderComponent
+        {/* <ImagePlaceHolderComponent
           width={400}
           height={400}
           imageOprions = {{
             uri: Images[this.state.random],
             borderRadius: 10,
           }}
-        />
+        /> */}
         <Button
           title='random'
           onPress={() => {

@@ -3,66 +3,50 @@ import DownloadTypes from '../../features/download/download.types';
 import { ContentRepository } from '../../data/local/repository/ContentRepository';
 import SplashTypes from '../../features/splash/splash.types';
 import { CategoryRepository } from '../../data/local/repository/CategoryRepository';
+import { getAllCategory } from '../../data/api/category.api';
+import { getAllContent } from '../../data/api/content.api';
+import { MedicamentTypes } from '../../features/medicament/medicament.types';
 
-async function getAllCategory() {
-  try {
-    let response = await fetch(
-      'https://us-central1-baithuocnamhay-93058.cloudfunctions.net/api/v1/category/get'
-    );
-    let responseJson = await response.json();
-    console.log(responseJson);
-    const categoryRepository: CategoryRepository = new CategoryRepository();
-    if (!responseJson.result.data) return;
-    responseJson.result.data.forEach((element: any) => {
-      categoryRepository.add({
-        id: element.id,
-        create: element.create,
-        update: element.update,
-        name: element.name,
-        description: element.description,
-        index: element.index,
-      });
+async function synchronizedCategory() {
+  const categories = await getAllCategory();
+  if (!categories.result.data) return;
+  const categoryRepository: CategoryRepository = new CategoryRepository();
+  categories.result.data.forEach((element: any) => {
+    categoryRepository.add({
+      id: element.id,
+      create: element.create,
+      update: element.update,
+      name: element.name,
+      description: element.description,
+      index: element.index,
     });
-    return responseJson.result.data;
-  } catch (error) {
-    console.error(error);
-  }
+  });
 }
 
-async function getAllContent() {
-  try {
-    let response = await fetch(
-      'https://us-central1-baithuocnamhay-93058.cloudfunctions.net/api/v1/content/get'
-    );
-    let responseJson = await response.json();
-    console.log(responseJson);
-    const contentRepository: ContentRepository = new ContentRepository();
-    if (!responseJson.result.data) return;
-
-    responseJson.result.data.forEach((element: any) => {
-      contentRepository.add({
-        id: element.id,
-        title: element.title,
-        description: element.description,
-        content: element.content,
-        categories: element.category,
-        image: element.image,
-        rate: element.rate ? element.rate : 5,
-        auth: element.auth ? element.auth : 'baithuochay',
-        create: element.create,
-        update: element.update,
-      });
+async function synchronizedContent() {
+  const contents = await getAllContent();
+  if (!contents.result.data) return;
+  const contentRepository: ContentRepository = new ContentRepository();
+  contents.result.data.forEach((element: any) => {
+    contentRepository.add({
+      id: element.id,
+      title: element.title,
+      description: element.description,
+      content: element.content,
+      categories: element.category,
+      image: element.image,
+      rate: element.rate ? element.rate : 5,
+      auth: element.auth ? element.auth : 'baithuochay',
+      create: element.create,
+      update: element.update,
     });
-    return responseJson.result.data;
-  } catch (error) {
-    console.error(error);
-  }
+  });
 }
 
 function* downloadStart() {
   console.log('start download...');
-  let contents = yield call(getAllContent);
-  let categories = yield call(getAllCategory);
+  let contents = yield call(synchronizedContent);
+  let categories = yield call(synchronizedCategory);
   console.log('save data to db success');
   yield put({
     type: SplashTypes.CHECK_DATA_LOCAL_DONE,
@@ -93,10 +77,29 @@ function* checkDataLocal() {
   }
 }
 
+function* getDataLocal() {
+  const categoryRepository: CategoryRepository = new CategoryRepository();
+  const contentRepository: ContentRepository = new ContentRepository();
+
+  let categories = categoryRepository.getAll();
+  let contents = contentRepository.getAll();
+
+  yield put({
+    type: MedicamentTypes.SET_DATA_CATEGORY,
+    categories: categories,
+  });
+
+  yield put({
+    type: MedicamentTypes.SET_DATA_CONTENT,
+    contents: contents,
+  });
+
+}
+
 function* rootSaga() {
   yield takeLatest(DownloadTypes.DOWNLOAD_START, downloadStart);
   yield takeLatest(SplashTypes.CHECK_DATA_LOCAL_START, checkDataLocal);
+  yield takeLatest(MedicamentTypes.GET_DATA, getDataLocal);
 }
-
 
 export default rootSaga;

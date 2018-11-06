@@ -4,22 +4,16 @@ import { Provider } from 'react-redux';
 import store from './stores/index';
 import StartComponent from './features/start/start.component';
 
-export interface AppProps {
+
+interface AppProps {
 }
 
-export interface AppState {
-}
+const App: React.SFC<AppProps> = (props) => {
+  return (
+    <Provider store={store}>
+      <StartComponent />
+    </Provider>
+  );
+};
 
-export default class AppComponent extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-  }
-
-  public render() {
-    return (
-      <Provider store={store}>
-        <StartComponent />
-      </Provider>
-    );
-  }
-}
+export default App;
