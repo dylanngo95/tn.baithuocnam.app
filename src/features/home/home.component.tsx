@@ -6,7 +6,7 @@ import {
   Image
 } from 'react-native';
 import ButtomCustom from '../../components/buttom-custom';
-import { CategoryService } from '../../data/local/services/CategoryService';
+import { CategoryRepository } from '../../data/local/repository/CategoryRepository';
 import HeaderComponent from '../../components/header.component';
 
 export interface HomeProps {
@@ -14,7 +14,7 @@ export interface HomeProps {
 
 export interface HomeState {
   categoryValue: string;
-  categoryService: CategoryService;
+  categoryRepository: CategoryRepository;
   categories: any;
 }
 
@@ -24,7 +24,7 @@ export default class HomeComponent extends React.Component<HomeProps, HomeState>
     console.log('home render');
     this.state = {
       categoryValue: '',
-      categoryService:  new CategoryService(),
+      categoryRepository:  new CategoryRepository(),
       categories: [],
     };
   }
@@ -48,7 +48,7 @@ export default class HomeComponent extends React.Component<HomeProps, HomeState>
           textButtom='Add'
           onPress={() => {
             const time = new Date().getTime();
-            this.state.categoryService.addIdIncrement({
+            this.state.categoryRepository.addIdIncrement({
               id: Math.floor(Math.random() * 100),
               index: Math.floor(Math.random() * 100),
               name: this.state.categoryValue,
@@ -63,7 +63,7 @@ export default class HomeComponent extends React.Component<HomeProps, HomeState>
           styleText={styles.textButtom}
           textButtom='Get'
           onPress={() => {
-            let result = this.state.categoryService.getAll();
+            let result = this.state.categoryRepository.getAll();
             let categories = Array.from(result);
             this.setState({
               categories: Array.from(result),

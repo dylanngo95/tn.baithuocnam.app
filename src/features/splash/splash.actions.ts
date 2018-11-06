@@ -1,15 +1,21 @@
 import SplashTypes from './splash.types';
-import { Content } from '../../data/local/models/Content';
+import { DataNews } from '../../data/local/models/DataNews';
 
-export const downloadStart = () => ({
-  type: SplashTypes.DOWNLOAD_START,
+export const checkDataLocalStart = () => ({
+  type: SplashTypes.CHECK_DATA_LOCAL_START,
 });
-export const downloadSuccess = (contents: Content[]) => ({
-  type: SplashTypes.DOWNLOAD_SUCCESS,
-  contents: contents,
+export const checkDataLocalDone = (isDataEmpty: boolean, isShowSplash: boolean) => ({
+  type: SplashTypes.CHECK_DATA_LOCAL_DONE,
+  isDataEmpty: isDataEmpty,
+  isShowSplash: isShowSplash,
 });
-export const downloadError = (error: string) => ({
-  type: SplashTypes.DOWNLOAD_ERROR,
+export const checkDataNews = (data: DataNews) => ({
+  type: SplashTypes.CHECK_DATA_NEW,
+  data: data,
+});
+export const checkDataError = (error: any) => ({
+  type: SplashTypes.CHECK_DATA_ERROR,
   error: error,
 });
+
 

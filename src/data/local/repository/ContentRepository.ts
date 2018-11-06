@@ -1,7 +1,7 @@
 import RealmDb from '../base/RealmDb';
 import { Content } from '../models/Content';
 
-export class ContentService {
+export class ContentRepository {
 
   public add(content: Content) {
     RealmDb.write(() => {
@@ -48,6 +48,11 @@ export class ContentService {
 
   public getAll() {
     return RealmDb.objects(Content.schema.name);
+  }
+
+  public count() {
+    let number =  RealmDb.objects(Content.schema.name);
+    return number.length;
   }
 
 }

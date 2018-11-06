@@ -1,7 +1,7 @@
 import RealmDb from '../base/RealmDb';
 import { Tag } from '../models/Tag';
 
-export class TagService {
+export class TagRepository {
 
   public add(tag: Tag) {
     RealmDb.write(() => {

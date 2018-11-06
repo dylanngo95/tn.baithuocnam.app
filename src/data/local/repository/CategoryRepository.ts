@@ -1,7 +1,7 @@
 import { Category } from '../models/Category';
 import RealmDb from '../base/RealmDb';
 
-export class CategoryService {
+export class CategoryRepository {
 
   public add(category: Category) {
     RealmDb.write(() => {
@@ -44,6 +44,11 @@ export class CategoryService {
   public getAll() {
     let categorys = RealmDb.objects(Category.schema.name);
     return categorys;
+  }
+
+  public count() {
+    let number =  RealmDb.objects(Category.schema.name);
+    return number.length;
   }
 
 }
