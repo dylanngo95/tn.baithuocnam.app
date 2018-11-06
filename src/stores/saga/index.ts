@@ -33,7 +33,7 @@ async function synchronizedContent() {
       title: element.title,
       description: element.description,
       content: element.content,
-      categories: element.category,
+      categories: element.categories,
       image: element.image,
       rate: element.rate ? element.rate : 5,
       auth: element.auth ? element.auth : 'baithuochay',

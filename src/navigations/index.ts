@@ -1,17 +1,23 @@
 import { createStackNavigator } from 'react-navigation';
-import { TabbarCustom } from './tabbar';
-import { Text } from 'react-native';
+import MedicamentDetailComponent from '../features/medicamentdetail/medicamentdetail.component';
+import StartComponent from '../features/start/start.component';
 
 export const RootStack = createStackNavigator(
   {
-    Main: {
-      screen: TabbarCustom,
+    Start: {
+      screen: StartComponent,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    MedicamentDetail: {
+      screen: MedicamentDetailComponent,
       navigationOptions: {
         header: null,
       },
     },
   },
   {
-    initialRouteName: 'Main',
+    initialRouteName: 'Start',
   }
 );

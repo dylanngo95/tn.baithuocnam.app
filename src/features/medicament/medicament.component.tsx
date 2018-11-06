@@ -16,6 +16,7 @@ import ImagePlaceHolder from '../../components/image-placeholder';
 import { getData } from './medicament.actions';
 import { Category } from '../../data/local/models/Category';
 import { Content } from '../../data/local/models/Content';
+import { RootStackGlobal } from '../../common/global/rootstack.global';
 
 
 const images = {
@@ -55,21 +56,21 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
     };
   }
 
-  public componentDidMount() {
+  public componentDidMount = () => {
     this.props.getData();
   }
 
   private ComponentLeft = () => (navigation: NavigationScreenProp<any, any>) => () =>
-  <TouchableOpacity
-    onPress={() => {
-      navigation.openDrawer();
-    }}
-    style={{ flex: 1, alignItems: 'flex-start' }} >
-    <Image
-      source={require('../../../assets/images/ic_menu.png')}
-      style={{ resizeMode: 'contain', width: 25, height: 25, marginLeft: 16, alignSelf: 'flex-start' }}
-    />
-  </TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.openDrawer();
+      }}
+      style={{ flex: 1, alignItems: 'flex-start' }} >
+      <Image
+        source={require('../../../assets/images/ic_menu.png')}
+        style={{ resizeMode: 'contain', width: 25, height: 25, marginLeft: 16, alignSelf: 'flex-start' }}
+      />
+    </TouchableOpacity>
 
   private renderFooter = () => {
     if (!this.state.loading) return null;
@@ -87,9 +88,17 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
     );
   }
 
+  private openMedicamentDetail = (content: Content)  =>
+    RootStackGlobal.get().navigate('MedicamentDetail', {
+      content: content,
+    })
+
   public render() {
     return (
       <View style={styles.container}>
+        <HeaderComponent
+          componentLeft={this.ComponentLeft()(this.props.navigation)}
+        />
         <FlatList
           data={this.props.contents}
           removeClippedSubviews={false}
@@ -101,8 +110,7 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
             return (
               <View style={styles.cell_container} >
                 <TouchableOpacity
-                  onPress={() => {
-                  }}
+                  onPress={() => this.openMedicamentDetail(item)}
                   style={styles.cell_view_top} >
                   <View style={styles.cell_view_top_container} >
                     <Text
@@ -160,11 +168,6 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
               </View>
             );
           }}
-          ListHeaderComponent={
-            <HeaderComponent
-              componentLeft={this.ComponentLeft()(this.props.navigation)}
-            />
-          }
           ListFooterComponent={this.renderFooter()}
         />
       </View>

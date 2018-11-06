@@ -27,7 +27,7 @@ export const TabbarCustom = createBottomTabNavigator(
     },
   },
   {
-    initialRouteName: 'Medicament',
+    initialRouteName: 'Home',
     tabBarPosition: 'bottom',
     tabBarOptions: {
       scrollEnabled: false,

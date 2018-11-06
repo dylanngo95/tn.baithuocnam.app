@@ -47,7 +47,7 @@ export class ContentRepository {
   }
 
   public getAll() {
-    return RealmDb.objects(Content.schema.name);
+    return RealmDb.objects(Content.schema.name).filtered('id < 30');
   }
 
   public count() {
