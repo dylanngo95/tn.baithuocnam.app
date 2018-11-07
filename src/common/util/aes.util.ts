@@ -1,15 +1,21 @@
+let aesjs = require('aes-js');
 
 export class AESUtil {
-  public static key_new_512 = [20, 33, 20, 13, 48, 52, 57, 50, 48, 102, 98, 56, 54, 53, 100, 55, 100, 48, 48, 56, 99, 48, 48, 56, 57, 99, 100, 50, 50, 56, 20, 22];
-
-  public static key_new_512_buffer = new Buffer(AESUtil.key_new_512);
+  public static key_new_512 = [ 22, 33, 33, 44, 15, 16, 17, 18, 99, 10, 11, 12, 13, 14, 15, 16 ];
+  public static iv = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   public static encryption(plainText: string) {
-   return '';
+    const textBytes = aesjs.utils.utf8.toBytes(plainText);
+    const aesOfb = new aesjs.ModeOfOperation.ofb(this.key_new_512, this.iv);
+    const encryptedBytes = aesOfb.encrypt(textBytes);
+    return aesjs.utils.hex.fromBytes(encryptedBytes);
   }
 
   public static decryption(encryptedText: string) {
-    return '';
+    const encryptedBytes = aesjs.utils.hex.toBytes(encryptedText);
+    const aesOfb = new aesjs.ModeOfOperation.ofb(this.key_new_512, this.iv);
+    const decryptedBytes = aesOfb.decrypt(encryptedBytes);
+    return aesjs.utils.utf8.fromBytes(decryptedBytes);
   }
 
 }

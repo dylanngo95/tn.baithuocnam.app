@@ -8,7 +8,6 @@ import {
 import ButtomCustom from '../../components/buttom-custom';
 import { CategoryRepository } from '../../data/local/repository/CategoryRepository';
 import HeaderComponent from '../../components/header.component';
-import { RootStackGlobal } from '../../common/global/rootstack.global';
 
 export interface HomeProps {
 }
@@ -47,17 +46,7 @@ export default class HomeComponent extends React.Component<HomeProps, HomeState>
           styleText={styles.textButtom}
           textButtom='Add'
           onPress={() => {
-            // const time = new Date().getTime();
-            // this.state.categoryRepository.addIdIncrement({
-            //   id: Math.floor(Math.random() * 100),
-            //   index: Math.floor(Math.random() * 100),
-            //   name: this.state.categoryValue,
-            //   description: 'category',
-            //   create: time,
-            //   update: time,
-            // });
-            RootStackGlobal.get().navigate('MedicamentDetail');
-            // console.log(RootStackGlobal.get());
+
           }}
          />
          <ButtomCustom

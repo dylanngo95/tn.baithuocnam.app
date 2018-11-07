@@ -2,7 +2,8 @@ import * as React from 'react';
 import {
   View, StyleSheet, Text,
   SliderComponent, Button,
-  ActivityIndicator
+  ActivityIndicator,
+  StatusBar
 } from 'react-native';
 import { connect } from 'react-redux';
 import { downloadStart } from './download.actions';
@@ -35,6 +36,11 @@ class DownloadComponent extends React.Component<DownloadProps, DownloadState> {
   public render() {
     return (
       <View style={styles.container}>
+        <StatusBar
+          translucent={true}
+          backgroundColor='transparent'
+          barStyle='dark-content'
+        />
         <Text style={{ fontSize: 15 }}>Downloading...</Text>
         <ActivityIndicator
           size='large'
