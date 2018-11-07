@@ -30,13 +30,13 @@ export const TabbarCustom = createBottomTabNavigator(
     initialRouteName: 'Home',
     tabBarPosition: 'bottom',
     tabBarOptions: {
-      scrollEnabled: false,
       activeTintColor: 'blue',
       inactiveTintColor: 'gray',
       labelStyle: { fontSize: 12, fontWeight: 'normal'},
     },
-    animationEnabled: false,
+    animationEnabled: true,
     lazy: true,
+    swipeEnabled: true,
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;

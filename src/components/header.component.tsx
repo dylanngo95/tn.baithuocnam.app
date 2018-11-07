@@ -48,7 +48,7 @@ export default class HeaderComponent extends React.PureComponent<HeaderProps, He
         super(props);
         this.state = {
             componentLeft: this.props.componentLeft ? this.props.componentLeft : ComponentLeft,
-            componentCenter: this.props.componentCenter ? this.props.componentLeft : ComponentCenter,
+            componentCenter: this.props.componentCenter ? this.props.componentCenter : ComponentCenter,
             componentRight: this.props.componentRight ? this.props.componentRight : ComponentRight,
         };
     }

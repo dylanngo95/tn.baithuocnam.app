@@ -4,7 +4,7 @@ import {
   WebView,
   Platform,
   TouchableOpacity,
-  Image,
+  Image, Dimensions,
 } from 'react-native';
 import HeaderComponent from '../../components/header.component';
 import { NavigationScreenProp } from 'react-navigation';
@@ -16,7 +16,8 @@ export interface MedicamentDetailProps {
 }
 
 export interface MedicamentDetailState {
-  content: any;
+  content: string;
+  title: string;
 }
 
 
@@ -25,13 +26,16 @@ export default class MedicamentDetailComponent extends React.Component<Medicamen
     super(props);
     this.state = {
       content: '',
+      title: this.props.navigation.state.params.content.title,
     };
   }
 
   public componentDidMount() {
-    const str1 = `<html><head><style type=\"text/css\">@font-face{font-family:MyFont;src:url(\"file:///android_asset/fonts/UVNVan_R.ttf\");}@font-face{font-family:MyFontBold;src:url(\"file:///android_asset/fonts/UVNVan.ttf\");}*{-webkit-user-select:none}body{font-family:MyFont;text-align:justify;padding:3px 5px;color:#2f2f2d;} b{font-family:MyFontBold;} .title{font-family:MyFontBold;}</style></head><body>`;
+
+    const width = Dimensions.get('window').width - 20;
+    const str1 = `<html><head><style type="text/css"> * { -webkit-user-select: none } body { font-family: Arial, Helvetica, sans-serif; text-align: justify; padding: 3px 5px; color: #2f2f2d; } b { font-family: Arial, Helvetica, sans-serif; font-size: large; font-weight: 600; } p img { max-width: ${width}px; max-height: auto; } .title { font-family: Arial, Helvetica, sans-serif; font-size: larger; font-weight: 700; }</style></head><body>`;
     const str2 = `</body></html>`;
-    const body =  AESUtil.decryption(this.props.navigation.state.params.content.content);
+    const body = AESUtil.decryption(this.props.navigation.state.params.content.content);
     body.replace('font-family', 'font-family-xxx');
     body.replace('font-size', 'font-size-xxx');
     body.replace('h1', 'center');
@@ -54,29 +58,52 @@ export default class MedicamentDetailComponent extends React.Component<Medicamen
       />
     </TouchableOpacity>
 
+  private ComponentCenter = () => (title: string) => () =>
+    <View style={styles.title}>
+      <Text
+        numberOfLines={1}
+        style={styles.title_text}>
+        {title}
+      </Text>
+    </View>
+
   public render() {
     return (
       <View
-        style={{
-          flex: 1,
-        }}
+        style={styles.container}
       >
         <HeaderComponent
           componentLeft={this.ComponentLeft()(this.props.navigation)}
+          componentCenter={this.ComponentCenter()(this.state.title)}
         />
         <WebView
-          style={{
-            padding: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flex: 1,
-            width: '100%',
-            marginTop: (Platform.OS) === 'ios' ? 20 : 0,
-          }}
+          style={styles.webview}
           source={{ html: this.state.content }}
           scalesPageToFit={true}
+          automaticallyAdjustContentInsets={false}
         />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  title: {
+    flex: 2.5,
+  },
+  title_text: {
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  webview: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    width: '100%',
+    marginTop: (Platform.OS) === 'ios' ? 20 : 0,
+  },
+});

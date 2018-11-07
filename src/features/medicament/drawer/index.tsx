@@ -1,14 +1,17 @@
 import { createDrawerNavigator } from 'react-navigation';
-import MenuMedicamentComponent from '../menu/menu-medicament.component';
 import MedicamentComponent from '../medicament.component';
+import MenuMedicamentComponent from '../menu/menu-medicament.component';
 
 export const DrawerMedicament = createDrawerNavigator(
   {
     Medicament: {
       screen: MedicamentComponent,
+      navigationOptions: {
+        drawerLockMode: 'locked-closed',
+      },
     },
-    MenuMedicament: {
-      screen: MenuMedicamentComponent,
-    },
+  },
+  {
+    contentComponent: MenuMedicamentComponent,
   }
 );

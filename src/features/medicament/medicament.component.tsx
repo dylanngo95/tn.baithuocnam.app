@@ -74,16 +74,13 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
 
   private renderFooter = () => {
     if (!this.state.loading) return null;
-
     return (
       <View
         style={{
           paddingVertical: 20,
-          borderTopWidth: 1,
-          borderColor: '#CED0CE',
         }}
       >
-        <ActivityIndicator animating size='large' />
+        <ActivityIndicator animating size='small' />
       </View>
     );
   }
@@ -104,7 +101,7 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
           removeClippedSubviews={false}
           keyExtractor={(item, index) => (item as any).id.toString()}
           contentContainerStyle={{
-            paddingBottom: 25,
+            paddingBottom: 20,
           }}
           renderItem={({ item }) => {
             return (
@@ -131,7 +128,7 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
                 <View style={styles.cell_view_bottom} >
                   <StarRating
                     max={5}
-                    initial={(item as any).star}
+                    initial={(item as any).rate}
                     onChange={(rating: number) => console.log(rating)}
                     selectedStar={images.starFilled}
                     unselectedStar={images.starUnfilled}
@@ -142,8 +139,8 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
                     stagger={50}
                     maxScale={1.6}
                     starStyle={{
-                      width: 13,
-                      height: 13,
+                      width: 14,
+                      height: 14,
                       margin: 1,
                     }}
                     editable={false}
@@ -151,7 +148,7 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
                   <View style={styles.cell_view_bottom_right}>
                     <Text
                       style={styles.cell_view_bottom_right_text}
-                    >{(item as any).author}
+                    >{(item as any).auth}
                     </Text>
                     <TouchableOpacity>
                       <Image
@@ -168,7 +165,7 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
               </View>
             );
           }}
-          ListFooterComponent={this.renderFooter()}
+          // ListFooterComponent={this.renderFooter()}
         />
       </View>
     );
@@ -219,11 +216,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   cell_view_bottom_right_text: {
-    fontSize: 13,
+    fontSize: 12,
     marginLeft: 5,
     fontFamily: 'arial',
+    fontStyle: 'italic',
     marginRight: 5,
-    fontWeight: '600',
+    fontWeight: '500',
   },
   cell_view_bottom_right_image: {
     width: 20, height: 20,
