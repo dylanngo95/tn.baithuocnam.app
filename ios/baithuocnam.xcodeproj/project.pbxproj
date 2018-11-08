@@ -40,6 +40,10 @@
 		F74A829F393C4CC69D06F40A /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3090FE65CAEC447E855B6A32 /* libRealmReact.a */; };
 		A7B35A4BF6BC4B59B92DE77D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 46008AB40B394C43B3153F5D /* libc++.tbd */; };
 		22FEA7A5969C4F7983177ED5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 78334CB32B494A7A868F2930 /* libz.tbd */; };
+		FF76AF9AE76F41E3AE7A4FF5 /* UTM_Gloria.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F584675FEB084CAAA699A854 /* UTM_Gloria.ttf */; };
+		23D187C618C94AF38E2F8554 /* UTMSwiss.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9D93D774A9F4356ABF8A06C /* UTMSwiss.ttf */; };
+		B66A4433534D4628BC9E5D5B /* UVNVan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E703A9160BEB4E56BA9A7241 /* UVNVan.ttf */; };
+		30905C153E5E42EC866B0F96 /* UVNVanR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF5BCDB475044AA49AD60FE0 /* UVNVanR.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -349,6 +353,10 @@
 		3090FE65CAEC447E855B6A32 /* libRealmReact.a */ = {isa = PBXFileReference; name = "libRealmReact.a"; path = "libRealmReact.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		46008AB40B394C43B3153F5D /* libc++.tbd */ = {isa = PBXFileReference; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 		78334CB32B494A7A868F2930 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		F584675FEB084CAAA699A854 /* UTM_Gloria.ttf */ = {isa = PBXFileReference; name = "UTM_Gloria.ttf"; path = "../assets/fonts/UTM_Gloria.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C9D93D774A9F4356ABF8A06C /* UTMSwiss.ttf */ = {isa = PBXFileReference; name = "UTMSwiss.ttf"; path = "../assets/fonts/UTMSwiss.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E703A9160BEB4E56BA9A7241 /* UVNVan.ttf */ = {isa = PBXFileReference; name = "UVNVan.ttf"; path = "../assets/fonts/UVNVan.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DF5BCDB475044AA49AD60FE0 /* UVNVanR.ttf */ = {isa = PBXFileReference; name = "UVNVanR.ttf"; path = "../assets/fonts/UVNVanR.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,6 +597,7 @@
 				00E356EF1AD99517003FC87E /* baithuocnamTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				B7448DCACFA8448388DA63A4 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -614,6 +623,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		B7448DCACFA8448388DA63A4 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				F584675FEB084CAAA699A854 /* UTM_Gloria.ttf */,
+				C9D93D774A9F4356ABF8A06C /* UTMSwiss.ttf */,
+				E703A9160BEB4E56BA9A7241 /* UVNVan.ttf */,
+				DF5BCDB475044AA49AD60FE0 /* UVNVanR.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1061,6 +1082,10 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				FF76AF9AE76F41E3AE7A4FF5 /* UTM_Gloria.ttf in Resources */,
+				23D187C618C94AF38E2F8554 /* UTMSwiss.ttf in Resources */,
+				B66A4433534D4628BC9E5D5B /* UVNVan.ttf in Resources */,
+				30905C153E5E42EC866B0F96 /* UVNVanR.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

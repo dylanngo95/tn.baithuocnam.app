@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 14,
     fontWeight: '600',
-    fontFamily: 'arial',
+    fontFamily: 'UTMSwiss',
     height: 55,
   },
   cell_view_top_container_image: {
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   cell_view_bottom_right_text: {
     fontSize: 12,
     marginLeft: 5,
-    fontFamily: 'arial',
+    fontFamily: 'UVNVan',
     fontStyle: 'italic',
     marginRight: 5,
     fontWeight: '500',

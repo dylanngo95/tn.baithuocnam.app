@@ -93,10 +93,12 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 2.5,
+    fontFamily: 'UVNVanR',
   },
   title_text: {
     fontSize: 15,
     fontWeight: 'bold',
+    fontFamily: 'UVNVan',
   },
   webview: {
     padding: 10,
