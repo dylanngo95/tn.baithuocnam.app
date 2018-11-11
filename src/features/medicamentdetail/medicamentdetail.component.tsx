@@ -80,7 +80,7 @@ export default class MedicamentDetailComponent extends React.Component<Medicamen
           style={styles.webview}
           source={{ html: this.state.content }}
           scalesPageToFit={true}
-          automaticallyAdjustContentInsets={false}
+          automaticallyAdjustContentInsets={true}
         />
       </View>
     );

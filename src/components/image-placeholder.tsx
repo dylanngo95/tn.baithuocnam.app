@@ -24,7 +24,6 @@ export interface ImagePlaceHolderState {
 export default class ImagePlaceHolder extends React.Component<ImagePlaceHolderProps, ImagePlaceHolderState> {
   constructor(props: ImagePlaceHolderProps) {
     super(props);
-    // console.warn('loading: ' + this.props.imageOprions.uri);
     this.state = {
       stateImage: 0,
     };
@@ -49,7 +48,7 @@ export default class ImagePlaceHolder extends React.Component<ImagePlaceHolderPr
           }}
           source={{
             uri: this.props.imageOprions.uri,
-            cache: 'force-cache',
+            cache: 'default',
           }}
           onError={() => {
             // console.warn('error');

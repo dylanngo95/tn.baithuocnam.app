@@ -42,8 +42,7 @@ export class CategoryRepository {
   }
 
   public getAll() {
-    let categorys = RealmDb.objects(Category.schema.name);
-    return categorys;
+    return RealmDb.objects(Category.schema.name).sorted('index');
   }
 
   public count() {

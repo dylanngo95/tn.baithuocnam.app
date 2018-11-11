@@ -13,7 +13,6 @@ import {
   NavigationScreenProp,
 } from 'react-navigation';
 import ImagePlaceHolder from '../../components/image-placeholder';
-import { getData } from './medicament.actions';
 import { Category } from '../../data/local/models/Category';
 import { Content } from '../../data/local/models/Content';
 import { RootStackGlobal } from '../../common/global/rootstack.global';
@@ -29,8 +28,6 @@ const images = {
 
 export interface MedicamentProps {
   navigation: NavigationScreenProp<any, any>;
-  getData: any;
-  categories: Category[];
   contents: Content[];
 }
 
@@ -38,14 +35,11 @@ export interface MedicamentState {
   loading: boolean;
 }
 
-
 const mapStateToProps = (state: any) => ({
   contents: state.medicament.contents,
-  categories: state.medicament.categories,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getData: () => dispatch(getData()),
 });
 
 class MedicamentComponent extends React.Component<MedicamentProps, MedicamentState> {
@@ -54,10 +48,10 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
     this.state = {
       loading: true,
     };
+
   }
 
   public componentDidMount = () => {
-    this.props.getData();
   }
 
   private ComponentLeft = () => (navigation: NavigationScreenProp<any, any>) => () =>

@@ -3,58 +3,108 @@ import {
   View, StyleSheet,
   Text, FlatList, TouchableOpacity,
 } from 'react-native';
-import { CategoryRepository } from '../../../data/local/repository/CategoryRepository';
-import { Category } from '../../../data/local/models/Category';
+import { connect } from 'react-redux';
+import { getData, changeCategory } from './menu-medicament.actions';
 
+interface ItemProps {
+  navigation: any;
+  changeCategory: any;
+  item: any;
+  categoryId: number;
+}
+
+interface ItemState {
+}
+
+class MyItem extends React.Component<ItemProps, ItemState> {
+  public constructor(props: ItemProps) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  public componentDidUpdate() {
+  }
+
+  public render() {
+    let textColor = (this.props.categoryId === this.props.item.id) ? 'blue' : 'black';
+    return(
+      <TouchableOpacity
+      onPress={() => {
+        this.props.changeCategory(this.props.item.id);
+        this.props.navigation.closeDrawer();
+      }}
+      style={styles.menu}>
+      <Text style={[styles.menu_text, {color: textColor}]}>{this.props.item.name}</Text>
+    </TouchableOpacity>
+    );
+  }
+}
 
 export interface MenuMedicamentProps {
   navigation: any;
+  categories: any;
+  getData: any;
+  changeCategory: any;
+  categoryId: number;
 }
 
 export interface MenuMedicamentState {
-  categories: any;
 }
 
-export default class MenuMedicamentComponent extends React.Component<MenuMedicamentProps, MenuMedicamentState> {
+const mapStateToProps = (state: any) => ({
+  categories: state.medicament.categories,
+  categoryId: state.medicament.categoryId,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getData: () => dispatch(getData()),
+  changeCategory: (categoryId: number) => dispatch(changeCategory(categoryId)),
+});
+
+class MenuMedicamentComponent extends React.Component<MenuMedicamentProps, MenuMedicamentState> {
   constructor(props: MenuMedicamentProps) {
     super(props);
     this.state = {
-      categories: [],
     };
-    console.log(this.props);
+    this.props.getData();
   }
 
   public componentDidMount() {
-    let categoryRepository: CategoryRepository = new CategoryRepository();
-    this.setState({
-      categories: categoryRepository.getAll(),
-    });
+  }
+
+  public componentDidUpdate() {
+    // console.warn('main' + this.props.categoryId);
   }
 
   private lineButtom = () =>
-  <View style={styles.line_buttom}/>
+    <View style={styles.line_buttom} />
 
   public render() {
     return (
       <View style={styles.container}>
         <FlatList
-          data={this.state.categories}
-          renderItem={({item}) =>
-            <TouchableOpacity
-              onPress={() => {
-                this.props.navigation.closeDrawer();
-              }}
-              style={styles.menu}>
-              <Text style={styles.menu_text}>{(item as any).name}</Text>
-            </TouchableOpacity>
+          data={this.props.categories}
+          renderItem={({ item }) =>
+            <MyItem
+              changeCategory={this.props.changeCategory}
+              item={item}
+              navigation={this.props.navigation}
+              categoryId={this.props.categoryId}
+            />
           }
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={this.lineButtom}
+          extraData={{
+            categoryId: this.props.categoryId,
+          }}
         />
       </View>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuMedicamentComponent);
 
 const styles = StyleSheet.create({
   container: {
