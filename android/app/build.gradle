@@ -98,7 +98,7 @@ android {
         config {
             keyAlias 'key0'
             keyPassword 'tinhtang'
-            storeFile file('/Users/tinhngo/reactnative/baithuocnam/src/common/test/my-key.jks')
+            storeFile file('/Users/tinhngo/reactnative/baithuocnam/configs/keystore/my-key.jks')
             storePassword 'tinhtang'
         }
         configWindown {
