@@ -33,13 +33,13 @@ export default class MedicamentDetailComponent extends React.Component<Medicamen
   public componentDidMount() {
 
     const width = Dimensions.get('window').width - 20;
-    const str1 = `<html><head><style type="text/css"> * { -webkit-user-select: none } body { font-family: Arial, Helvetica, sans-serif; text-align: justify; padding: 3px 5px; color: #2f2f2d; } b { font-family: Arial, Helvetica, sans-serif; font-size: large; font-weight: 600; } p img { max-width: ${width}px; max-height: auto; } .title { font-family: Arial, Helvetica, sans-serif; font-size: larger; font-weight: 700; }</style></head><body>`;
+    const str1 = `<html><head><style type="text/css"> * { -webkit-user-select: none } body { font-family: Arial, Helvetica, sans-serif; text-align: justify; padding: 3px 5px; color: #2f2f2d; } b { font-family: Arial, Helvetica, sans-serif; font-size: large; font-weight: 600; } img { max-width: ${width}px; max-height: auto; } .title { font-family: Arial, Helvetica, sans-serif; font-size: larger; font-weight: 700; }</style></head><body>`;
     const str2 = `</body></html>`;
     const body = AESUtil.decryption(this.props.navigation.state.params.content.content);
-    body.replace('font-family', 'font-family-xxx');
-    body.replace('font-size', 'font-size-xxx');
-    body.replace('h1', 'center');
-    body.replace('size=', 'size=-xxx');
+    // body.replace('font-family', 'font-family-xxx');
+    // body.replace('font-size', 'font-size-xxx');
+    // body.replace('h1', 'center');
+    // body.replace('size=', 'size=-xxx');
 
     this.setState({
       content: str1 + body + str2,

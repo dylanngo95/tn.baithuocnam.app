@@ -12,9 +12,9 @@ import { Content } from '../../data/local/models/Content';
 
 async function synchronizedCategory() {
   const categories = await getAllCategory();
-  if (!categories.result.data) return;
+  if (!categories) return;
   const categoryRepository: CategoryRepository = new CategoryRepository();
-  categories.result.data.forEach((element: any) => {
+  categories.forEach((element: any) => {
     categoryRepository.add({
       id: element.id,
       create: element.create,
@@ -28,12 +28,12 @@ async function synchronizedCategory() {
 
 async function synchronizedContent() {
   const contents = await getAllContent();
-  if (!contents.result.data) return;
+  if (!contents) return;
 
   const contentRepository: ContentRepository = new ContentRepository();
   const tagRepository: TagRepository = new TagRepository();
 
-  contents.result.data.forEach((element: any) => {
+  contents.forEach((element: any) => {
 
     contentRepository.add({
       id: element.id,
@@ -66,10 +66,16 @@ async function synchronizedContent() {
 }
 
 function* downloadStart() {
-  console.log('start download...');
-  let contents = yield call(synchronizedContent);
-  let categories = yield call(synchronizedCategory);
-  console.log('save data to db success');
+  // console.log('start download...');
+  const contentRepository: CategoryRepository = new CategoryRepository();
+  const categoryRepository: CategoryRepository = new CategoryRepository();
+  if (contentRepository.count() <= 0) {
+    yield call(synchronizedContent);
+  }
+  if (categoryRepository.count() <= 0) {
+    yield call(synchronizedCategory);
+  }
+  // console.log('save data to db success');
   yield put({
     type: SplashTypes.CHECK_DATA_LOCAL_DONE,
     isDataEmpty: false,
