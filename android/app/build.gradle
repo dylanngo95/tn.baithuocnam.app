@@ -98,10 +98,8 @@ android {
         config {
             keyAlias 'key0'
             keyPassword 'tinhtang'
-            storeFile file('/Users/tinhngo/reactnative/baithuocnam/configs/keystore/my-key.jks')
+            storeFile file('C:/Users/tinh.ngo/reactnative/baithuocnam/configs/keystore/my-key.jks')
             storePassword 'tinhtang'
-        }
-        configWindown {
         }
     }
     compileSdkVersion rootProject.ext.compileSdkVersion

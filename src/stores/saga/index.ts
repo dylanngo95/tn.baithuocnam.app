@@ -10,77 +10,117 @@ import { TagRepository } from '../../data/local/repository/TagRepository';
 import { Tag } from '../../data/local/models/Tag';
 import { Content } from '../../data/local/models/Content';
 
-async function synchronizedCategory() {
-  const categories = await getAllCategory();
-  if (!categories) return;
-  const categoryRepository: CategoryRepository = new CategoryRepository();
-  categories.forEach((element: any) => {
-    categoryRepository.add({
-      id: element.id,
-      create: element.create,
-      update: element.update,
-      name: element.name,
-      description: element.description,
-      index: element.index,
-    });
-  });
-}
 
-async function synchronizedContent() {
-  const contents = await getAllContent();
-  if (!contents) return;
 
-  const contentRepository: ContentRepository = new ContentRepository();
-  const tagRepository: TagRepository = new TagRepository();
-
-  contents.forEach((element: any) => {
-
-    contentRepository.add({
-      id: element.id,
-      title: element.title,
-      description: element.description,
-      content: element.content,
-      categories: element.categories,
-      image: element.image,
-      rate: element.rate ? element.rate : 5,
-      auth: element.auth ? element.auth : 'baithuochay',
-      create: element.create,
-      update: element.update,
-    });
-    // Add TagModel
-    if (element.categories) {
-      let categoryArr = element.categories.split(',');
-      categoryArr.forEach((item: any) => {
-        if (item.trim() !== '') {
-          tagRepository.addIdIncrement({
-            id: element.id,
-            // tslint:disable-next-line:radix
-            categoryId: parseInt(item),
-            contentId: element.id,
-          });
-        }
+async function synchronizedCategory(): Promise<boolean> {
+  try {
+    const categories = await getAllCategory();
+    if (!categories) return Promise.resolve(true);
+    const categoryRepository: CategoryRepository = new CategoryRepository();
+    categories.forEach((element: any) => {
+      categoryRepository.add({
+        id: element.id,
+        create: element.create,
+        update: element.update,
+        name: element.name,
+        description: element.description,
+        index: element.index,
       });
-    }
+    });
+    return Promise.resolve(true);
+  } catch (ex) {
+    return Promise.reject(false);
+  }
+}
 
+async function synchronizedContent(): Promise<boolean> {
+  try {
+    const contents = await getAllContent();
+    if (!contents) return Promise.resolve(false);
+    const contentRepository: ContentRepository = new ContentRepository();
+    const tagRepository: TagRepository = new TagRepository();
+
+    contents.forEach((element: any) => {
+      contentRepository.add({
+        id: element.id,
+        title: element.title,
+        description: element.description,
+        content: element.content,
+        categories: element.categories,
+        image: element.image,
+        rate: element.rate ? element.rate : 5,
+        auth: element.auth ? element.auth : 'baithuochay',
+        create: element.create,
+        update: element.update,
+      });
+      // Add TagModel
+      if (element.categories) {
+        let categoryArr = element.categories.split(',');
+        categoryArr.forEach((item: any) => {
+          if (item.trim() !== '') {
+            tagRepository.addIdIncrement({
+              id: element.id,
+              // tslint:disable-next-line:radix
+              categoryId: parseInt(item),
+              contentId: element.id,
+            });
+          }
+        });
+      }
+    });
+    return Promise.resolve(true);
+  } catch (ex) {
+    return Promise.reject(false);
+  }
+}
+
+function* setConnectedOn() {
+  yield put({
+    type: SplashTypes.SET_CONNECTED_STATE,
+    isConnected: true,
   });
 }
+
+function* setConnectedOff() {
+  yield put({
+    type: SplashTypes.SET_CONNECTED_STATE,
+    isConnected: false,
+  });
+}
+
 
 function* downloadStart() {
-  // console.log('start download...');
-  const contentRepository: CategoryRepository = new CategoryRepository();
-  const categoryRepository: CategoryRepository = new CategoryRepository();
-  if (contentRepository.count() <= 0) {
-    yield call(synchronizedContent);
+  // console.warn('download start is runing');
+  let isError = true;
+
+  try {
+    const contentRepository: CategoryRepository = new CategoryRepository();
+    if (contentRepository.count() <= 0) {
+      yield call(synchronizedContent);
+    }
+  } catch (ex) {
+    // console.warn('save content is error');
+    isError = false;
   }
-  if (categoryRepository.count() <= 0) {
-    yield call(synchronizedCategory);
+
+  try {
+    const categoryRepository: CategoryRepository = new CategoryRepository();
+    if (categoryRepository.count() <= 0) {
+      yield call(synchronizedCategory);
+    }
+  } catch (ex) {
+    // console.warn('save category is error');
+    isError = false;
   }
-  // console.log('save data to db success');
-  yield put({
-    type: SplashTypes.CHECK_DATA_LOCAL_DONE,
-    isDataEmpty: false,
-    isShowSplash: false,
-  });
+
+  if (isError) {
+    yield put({
+      type: SplashTypes.CHECK_DATA_LOCAL_DONE,
+      isDataEmpty: false,
+      isShowSplash: false,
+    });
+  }
+
 }
 
 function* checkDataLocal() {
@@ -163,8 +203,10 @@ function* changeCategory(action: any) {
 }
 
 function* rootSaga() {
-  yield takeLatest(DownloadTypes.DOWNLOAD_START, downloadStart);
   yield takeLatest(SplashTypes.CHECK_DATA_LOCAL_START, checkDataLocal);
+  yield takeLatest(SplashTypes.CONNECTED_ON, setConnectedOn);
+  yield takeLatest(SplashTypes.CONNECTED_OFF, setConnectedOff);
+  yield takeLatest(DownloadTypes.DOWNLOAD_START, downloadStart);
   yield takeLatest(MenuMedicamentTypes.GET_DATA, getDataLocal);
   yield takeLatest(MenuMedicamentTypes.CHANGE_CATEGORY, changeCategory);
 }

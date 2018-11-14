@@ -6,6 +6,7 @@ const initSate = {
   isShowSplash: true,
   countContentNew: 0,
   countCategoryNew: 0,
+  isConnected: true,
 };
 
 export const SplashReducer = (state = initSate, action: any) => {
@@ -18,6 +19,8 @@ export const SplashReducer = (state = initSate, action: any) => {
       return {...state, isDataEmpty: action.isDataEmpty, isShowSplash: action.isShowSplash};
     case SplashTypes.CHECK_DATA_ERROR:
       return {...state, error: action.error};
+    case SplashTypes.SET_CONNECTED_STATE:
+      return {...state, isConnected: action.isConnected};
     default:
       return state;
   }

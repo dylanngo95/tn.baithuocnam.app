@@ -18,4 +18,16 @@ export const checkDataError = (error: any) => ({
   error: error,
 });
 
+export const setConnectedOn = () => ({
+  type: SplashTypes.CONNECTED_ON,
+});
+
+export const setConnectedOff = () => ({
+  type: SplashTypes.CONNECTED_OFF,
+});
+
+export const setConnectedState = (isConnected: boolean) => ({
+  type: SplashTypes.SET_CONNECTED_STATE,
+  isConnected: isConnected,
+});
 
