@@ -139,7 +139,7 @@ function* checkDataLocal() {
     // console.log('data empty');
     yield put({
       type: SplashTypes.CHECK_DATA_LOCAL_DONE,
-      isDataEmpty: true,
+      isDataEmpty: false,
       isShowSplash: false,
     });
   }
@@ -156,6 +156,8 @@ function* getDataLocal() {
   const tagRepository: TagRepository = new TagRepository();
 
   let categories = categoryRepository.getAll();
+  console.log('categories');
+  console.log(categories);
   yield put({
     type: MenuMedicamentTypes.SET_DATA_CATEGORY,
     categories: categories,

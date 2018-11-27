@@ -191,7 +191,6 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 14,
     fontWeight: '600',
-    fontFamily: 'UTMSwiss',
     height: 55,
   },
   cell_view_top_container_image: {

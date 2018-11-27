@@ -106,6 +106,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     width: '100%',
-    marginTop: (Platform.OS) === 'ios' ? 20 : 0,
+    marginTop: 0,
   },
 });

@@ -1,34 +1,37 @@
-import RealmDb from '../base/RealmDb';
+import { RealmDb } from '../base/RealmDb';
 import { Content } from '../models/Content';
 
 export class ContentRepository {
 
+  private Realm = RealmDb();
+
+
   public add(content: Content) {
-    RealmDb.write(() => {
-      RealmDb.create(Content.schema.name, content);
+    this.Realm.write(() => {
+      this.Realm.create(Content.schema.name, content);
     });
   }
 
   public addIdIncrement(content: Content) {
-    let idMax = RealmDb.objects(Content.schema.name).max('id');
+    let idMax = this.Realm.objects(Content.schema.name).max('id');
     if (idMax) {
       content.id = idMax as number + 1;
     } else {
       content.id = 1;
     }
-    RealmDb.write(() => {
-      RealmDb.create(Content.schema.name, content);
+    this.Realm.write(() => {
+      this.Realm.create(Content.schema.name, content);
     });
   }
 
   public remove(id: number) {
-    RealmDb.delete(id);
+    this.Realm.delete(id);
   }
 
   public update(content: Content) {
-    const contents = RealmDb.objects(Content.schema.name).filtered('id=' + content.id);
+    const contents = this.Realm.objects(Content.schema.name).filtered('id=' + content.id);
     if (contents) {
-      RealmDb.write(() => {
+      this.Realm.write(() => {
         (<Content>contents[0]).categories = content.categories;
         (<Content>contents[0]).title = content.title;
         (<Content>contents[0]).content = content.content;
@@ -42,16 +45,16 @@ export class ContentRepository {
   }
 
   public getSingle(id: number) {
-    const contents = RealmDb.objects(Content.schema.name).filtered('id=' + id);
+    const contents = this.Realm.objects(Content.schema.name).filtered('id=' + id);
     return contents[0];
   }
 
   public getAll() {
-    return RealmDb.objects(Content.schema.name).filtered('id > 200');
+    return this.Realm.objects(Content.schema.name).filtered('id > 200');
   }
 
   public count() {
-    let number =  RealmDb.objects(Content.schema.name);
+    let number =  this.Realm.objects(Content.schema.name);
     return number.length;
   }
 

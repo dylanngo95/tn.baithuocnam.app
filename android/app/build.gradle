@@ -98,7 +98,7 @@ android {
         config {
             keyAlias 'key0'
             keyPassword 'tinhtang'
-            storeFile file('C:/Users/tinh.ngo/reactnative/baithuocnam/configs/keystore/my-key.jks')
+            storeFile file('../../configs/keystore/my-key.jks')
             storePassword 'tinhtang'
         }
     }
@@ -145,6 +145,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-fs')
     implementation project(':realm')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"

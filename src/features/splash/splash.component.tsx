@@ -4,6 +4,7 @@ import {
   StatusBar, NetInfo, Image,
   Animated,
   Easing,
+  Platform,
 } from 'react-native';
 import { connect } from 'react-redux';
 import DownloadComponent from '../download/download.component';
@@ -13,6 +14,8 @@ import { RootStack } from '../../navigations';
 const images = {
   icon_splash: require('../../../assets/images/ic_splash.png'),
 };
+
+import * as fs from 'react-native-fs';
 
 export interface SplashViewProps {
 }
@@ -32,12 +35,12 @@ export class SplashView extends React.Component<SplashViewProps, SplashViewState
   public componentDidMount() {
     Animated.timing(
       this.state.spinValue,
-    {
-      toValue: 1,
-      duration: 3000,
-      easing: Easing.linear,
-    }
-  ).start();
+      {
+        toValue: 1,
+        duration: 3000,
+        easing: Easing.linear,
+      }
+    ).start();
   }
 
   public render() {
@@ -55,7 +58,7 @@ export class SplashView extends React.Component<SplashViewProps, SplashViewState
           barStyle='dark-content'
         />
         <Animated.Image
-          style={{ width: 70, height: 70, transform: [{rotate: spin}] }}
+          style={{ width: 70, height: 70, transform: [{ rotate: spin }] }}
           source={images.icon_splash}
         />
       </View>
@@ -105,17 +108,25 @@ class SplashComponent extends React.Component<SplashProps, SplashState> {
   }
 
   public componentDidMount() {
-    setTimeout(() => {
-      this.props.checkDataLocalStart();
-    }, 2000);
+    if (Platform.OS === 'android') {
+      try {
+        fs.copyFileAssets('db/default.realm', fs.DocumentDirectoryPath + '/default.realm')
+        .then(() => {
+          this.props.checkDataLocalStart();
+        });
+      } catch (error) {
+       console.warn(error);
+      }
+    } else {
+      setTimeout(() => {
+        this.props.checkDataLocalStart();
+      }, 1000);
+    }
   }
 
   public render() {
     return (
-      this.props.isDataEmpty ?
-        <DownloadComponent />
-        :
-        this.props.isShowSplash ? <SplashView /> : <RootStack />
+      this.props.isShowSplash ? <SplashView /> : <RootStack />
     );
   }
 }
