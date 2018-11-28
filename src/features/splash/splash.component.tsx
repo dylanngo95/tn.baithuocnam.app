@@ -107,20 +107,25 @@ class SplashComponent extends React.Component<SplashProps, SplashState> {
     });
   }
 
-  public componentDidMount() {
+  public async componentDidMount() {
     if (Platform.OS === 'android') {
       try {
-        fs.copyFileAssets('db/default.realm', fs.DocumentDirectoryPath + '/default.realm')
-        .then(() => {
+        const isRealm = await fs.exists(fs.DocumentDirectoryPath + '/default.realm');
+        if (isRealm) {
+          setTimeout(() => {
+            this.props.checkDataLocalStart();
+          }, 500);
+        } else {
+          const res = await fs.copyFileAssets('db/default.realm', fs.DocumentDirectoryPath + '/default.realm');
           this.props.checkDataLocalStart();
-        });
+        }
       } catch (error) {
        console.warn(error);
       }
     } else {
       setTimeout(() => {
         this.props.checkDataLocalStart();
-      }, 1000);
+      }, 500);
     }
   }
 

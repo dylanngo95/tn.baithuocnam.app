@@ -124,25 +124,11 @@ function* downloadStart() {
 }
 
 function* checkDataLocal() {
-  // console.log('check data local');
-  const contentRepository: CategoryRepository = new CategoryRepository();
-  const categoryRepository: CategoryRepository = new CategoryRepository();
-
-  if (contentRepository.count() > 0 && categoryRepository.count() > 0) {
-    // console.log('data exists');
-    yield put({
-      type: SplashTypes.CHECK_DATA_LOCAL_DONE,
-      isDataEmpty: false,
-      isShowSplash: false,
-    });
-  } else {
-    // console.log('data empty');
-    yield put({
-      type: SplashTypes.CHECK_DATA_LOCAL_DONE,
-      isDataEmpty: false,
-      isShowSplash: false,
-    });
-  }
+  yield put({
+    type: SplashTypes.CHECK_DATA_LOCAL_DONE,
+    isDataEmpty: false,
+    isShowSplash: false,
+  });
 }
 
 /**
