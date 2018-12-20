@@ -71,7 +71,7 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
     return (
       <View
         style={{
-          paddingVertical: 20,
+          marginTop: 20,
         }}
       >
         <ActivityIndicator animating size='small' />
@@ -92,7 +92,7 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
         />
         <FlatList
           data={this.props.contents}
-          removeClippedSubviews={false}
+          removeClippedSubviews
           keyExtractor={(item, index) => (item as any).id.toString()}
           contentContainerStyle={{
             paddingBottom: 20,
@@ -159,7 +159,7 @@ class MedicamentComponent extends React.Component<MedicamentProps, MedicamentSta
               </View>
             );
           }}
-          // ListFooterComponent={this.renderFooter()}
+          ListFooterComponent={this.renderFooter()}
         />
       </View>
     );

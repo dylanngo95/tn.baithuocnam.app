@@ -1,8 +1,10 @@
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import MedicamentDetailComponent from '../features/medicamentdetail/medicamentdetail.component';
 import StartComponent from '../features/start/start.component';
+import { DrawerMedicament } from '../features/medicament/drawer';
 
-export const RootStack = createStackNavigator(
+
+const Root = createStackNavigator(
   {
     Start: {
       screen: StartComponent,
@@ -21,3 +23,5 @@ export const RootStack = createStackNavigator(
     initialRouteName: 'Start',
   }
 );
+
+export const RootStack = createAppContainer(Root);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createBottomTabNavigator, DrawerNavigator } from 'react-navigation';
+import { createBottomTabNavigator, DrawerNavigator, createAppContainer } from 'react-navigation';
 import { Image, StyleSheet, StyleProp, ImageStyle } from 'react-native';
 
 import HomeComponent from '../../features/home/home.component';
@@ -14,7 +14,7 @@ export const images = {
   home: require('../../../assets/images/ic_home.png'),
 };
 
-export const TabbarCustom = createBottomTabNavigator(
+const Tabbar = createBottomTabNavigator(
   {
     Home: {
       screen: HomeComponent,
@@ -37,8 +37,8 @@ export const TabbarCustom = createBottomTabNavigator(
     animationEnabled: true,
     lazy: true,
     swipeEnabled: true,
-    navigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, tintColor }) => {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
         if (routeName === 'Home') {
             return <Image
@@ -60,6 +60,8 @@ export const TabbarCustom = createBottomTabNavigator(
     }),
   }
 );
+
+export const TabbarCustom = createAppContainer(Tabbar);
 
 const styles = StyleSheet.create({
   title_tabbar: {

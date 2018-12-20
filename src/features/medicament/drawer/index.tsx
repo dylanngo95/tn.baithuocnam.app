@@ -6,12 +6,9 @@ export const DrawerMedicament = createDrawerNavigator(
   {
     Medicament: {
       screen: MedicamentComponent,
-      navigationOptions: {
-        drawerLockMode: 'locked-closed',
-      },
     },
   },
   {
-    contentComponent: MenuMedicamentComponent,
+    contentComponent: MenuMedicamentComponent as any,
   }
 );
