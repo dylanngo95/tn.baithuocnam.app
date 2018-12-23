@@ -69,7 +69,7 @@ class DownloadComponent extends React.Component<DownloadProps, DownloadState> {
           onChange={(isConnected: boolean) => {
             if (isConnected) {
               this.props.setConnectedOn();
-              this.props.downloadStart();
+              // this.props.downloadStart();
             } else {
               this.props.setConnectedOff();
             }

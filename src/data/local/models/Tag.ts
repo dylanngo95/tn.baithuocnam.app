@@ -5,14 +5,14 @@ export class Tag {
     name: 'Tags',
     primaryKey: 'id',
     properties: {
-      id: 'int',
-      contentId: 'int',
-      categoryId: 'int',
+      id: 'string',
+      contentId: 'string',
+      categoryId: 'string',
     },
   };
 
-  public id: number;
-  public contentId: number;
-  public categoryId: number;
+  public id: string;
+  public contentId: string;
+  public categoryId: string;
 
 }

@@ -3,7 +3,7 @@ import { MenuMedicamentTypes } from './menu-medicament.types';
 const initstate = {
   categories: [],
   contents: [],
-  categoryId: 1,
+  categoryId: '5c1fb8174395e1004060c7f7',
 };
 
 export const MenuMedicamentReducer = (state = initstate, action: any) => {

@@ -6,8 +6,7 @@ export class Content {
     name: 'Contents',
     primaryKey: 'id',
     properties: {
-      id: 'int',
-      categories: 'string',
+      id: 'string',
       title: 'string',
       content: 'string',
       description: 'string?',
@@ -19,8 +18,7 @@ export class Content {
     },
   };
 
-  public id: number;
-  public categories: string;
+  public id: string;
   public title: string;
   public content: string;
   public description?: string | '';

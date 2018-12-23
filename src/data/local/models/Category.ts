@@ -5,7 +5,7 @@ export class Category {
     name: 'Categories',
     primaryKey: 'id',
     properties: {
-      id: 'int',
+      id: 'string',
       index: 'int',
       name: 'string',
       description: 'string?',
@@ -14,7 +14,7 @@ export class Category {
     },
   };
 
-  public id: number;
+  public id: string;
   public index: number;
   public name: string;
   public description?: string | '';

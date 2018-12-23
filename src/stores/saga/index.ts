@@ -9,68 +9,78 @@ import { MenuMedicamentTypes } from '../../features/medicament/menu/menu-medicam
 import { TagRepository } from '../../data/local/repository/TagRepository';
 import { Tag } from '../../data/local/models/Tag';
 import { Content } from '../../data/local/models/Content';
+import * as uuid from 'uuid/v1';
 
 
-
-async function synchronizedCategory(): Promise<boolean> {
+async function synchronizedCategory(): Promise<string> {
   try {
+    console.log('start sync cate');
     const categories = await getAllCategory();
-    if (!categories) return Promise.resolve(true);
+    console.log(categories);
+    if (!categories) return Promise.reject('categoty is not define');
     const categoryRepository: CategoryRepository = new CategoryRepository();
     categories.forEach((element: any) => {
       categoryRepository.add({
-        id: element.id,
-        create: element.create,
-        update: element.update,
+        id: element._id,
+        create: element.created,
+        update: element.updated,
         name: element.name,
         description: element.description,
         index: element.index,
       });
     });
-    return Promise.resolve(true);
+    console.log('end sync cate');
+    return Promise.resolve('save category complete');
   } catch (ex) {
-    return Promise.reject(false);
+    console.log('category' + ex);
+    return Promise.reject('error ' + ex);
   }
 }
 
-async function synchronizedContent(): Promise<boolean> {
+async function synchronizedContent(): Promise<string> {
   try {
+    console.log('start sync content');
     const contents = await getAllContent();
-    if (!contents) return Promise.resolve(false);
+    console.log(contents);
+    if (!contents) return Promise.reject('content is not define');
     const contentRepository: ContentRepository = new ContentRepository();
     const tagRepository: TagRepository = new TagRepository();
+    const categoryRepository: CategoryRepository = new CategoryRepository();
 
     contents.forEach((element: any) => {
       contentRepository.add({
-        id: element.id,
+        id: element._id,
         title: element.title,
         description: element.description,
         content: element.content,
-        categories: element.categories,
         image: element.image,
         rate: element.rate ? element.rate : 5,
-        auth: element.auth ? element.auth : 'baithuochay',
-        create: element.create,
-        update: element.update,
+        auth: element.auth ? element.auth : 'baithuocnamhay',
+        create: element.created,
+        update: element.updated,
       });
       // Add TagModel
+      console.warn('add mode');
       if (element.categories) {
         let categoryArr = element.categories.split(',');
         categoryArr.forEach((item: any) => {
+          const uuidRandom = uuid();
           if (item.trim() !== '') {
-            tagRepository.addIdIncrement({
-              id: element.id,
-              // tslint:disable-next-line:radix
-              categoryId: parseInt(item),
-              contentId: element.id,
+            const category = categoryRepository.getSingleByIndex(item.trim());
+            tagRepository.add({
+              id: uuidRandom,
+              categoryId: (category as any).id,
+              contentId: element._id,
             });
           }
         });
       }
     });
-    return Promise.resolve(true);
+    console.log('end sync content');
+    return Promise.resolve('save content complete');
   } catch (ex) {
-    return Promise.reject(false);
+    console.log('error ' + ex);
+    return Promise.reject('error ' + ex);
   }
 }
 
@@ -90,43 +100,52 @@ function* setConnectedOff() {
 
 
 function* downloadStart() {
-  // console.warn('download start is runing');
+  console.log('download start is runing');
   let isError = true;
 
   try {
-    const contentRepository: CategoryRepository = new CategoryRepository();
-    if (contentRepository.count() <= 0) {
-      yield call(synchronizedContent);
+    const categoryRepository: CategoryRepository = new CategoryRepository();
+
+    if (categoryRepository.count() <= 0) {
+      yield call(synchronizedCategory);
+    } else {
+      console.log('category dont empty');
     }
   } catch (ex) {
-    // console.warn('save content is error');
+    console.warn('save category is error');
     isError = false;
   }
 
   try {
-    const categoryRepository: CategoryRepository = new CategoryRepository();
-    if (categoryRepository.count() <= 0) {
-      yield call(synchronizedCategory);
+    const contentRepository: ContentRepository = new ContentRepository();
+
+    if (contentRepository.count() <= 0) {
+      yield call(synchronizedContent);
+    } else {
+      console.log('content dont empty');
     }
   } catch (ex) {
-    // console.warn('save category is error');
+    console.warn('save content is error');
     isError = false;
   }
 
-  if (isError) {
-    yield put({
-      type: SplashTypes.CHECK_DATA_LOCAL_DONE,
-      isDataEmpty: false,
-      isShowSplash: false,
-    });
-  }
+  // if (isError) {
+  console.log('dowload complete');
+  yield put({
+    type: SplashTypes.CHECK_DATA_LOCAL_DONE,
+    isDataEmpty: false,
+    isShowSplash: false,
+  });
+  // }
 
 }
 
 function* checkDataLocal() {
+  // const contentRepository: ContentRepository = new ContentRepository();
+  // yield contentRepository.deleteAll();
   yield put({
     type: SplashTypes.CHECK_DATA_LOCAL_DONE,
-    isDataEmpty: false,
+    isDataEmpty: true,
     isShowSplash: false,
   });
 }
@@ -142,8 +161,8 @@ function* getDataLocal() {
   const tagRepository: TagRepository = new TagRepository();
 
   let categories = categoryRepository.getAll();
-  console.log('categories');
-  console.log(categories);
+  console.warn(categories.length);
+
   yield put({
     type: MenuMedicamentTypes.SET_DATA_CATEGORY,
     categories: categories,
@@ -151,7 +170,7 @@ function* getDataLocal() {
 
   const categoryId = yield select(selectCategoryId);
   const listContentInTag = tagRepository.getByCategoryId(categoryId);
-  // let contents = contentRepository.getAll();
+
   let contents: Content[] = [];
   listContentInTag.forEach((item: Tag) => {
     const content = contentRepository.getSingle(item.contentId);

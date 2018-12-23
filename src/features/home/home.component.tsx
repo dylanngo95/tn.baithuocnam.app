@@ -54,11 +54,11 @@ export default class HomeComponent extends React.Component<HomeProps, HomeState>
           styleText={styles.textButtom}
           textButtom='Get'
           onPress={() => {
-            let result = this.state.categoryRepository.getAll();
-            let categories = Array.from(result);
-            this.setState({
-              categories: Array.from(result),
-            });
+            // let result = this.state.categoryRepository.getAll();
+            // let categories = Array.from(result);
+            // this.setState({
+            //   categories: Array.from(result),
+            // });
           }}
          />
         <FlatList

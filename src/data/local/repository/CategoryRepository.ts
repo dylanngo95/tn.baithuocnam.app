@@ -11,19 +11,19 @@ export class CategoryRepository {
     });
   }
 
-  public addIdIncrement(category: Category) {
-    let idMax = this.Realm.objects(Category.schema.name).max('id');
-    if (idMax) {
-      category.id = idMax as number + 1;
-    } else {
-      category.id = 1;
-    }
-    this.Realm.write(() => {
-      this.Realm.create(Category.schema.name, category);
-    });
-  }
+  // public addIdIncrement(category: Category) {
+  //   let idMax = this.Realm.objects(Category.schema.name).max('id');
+  //   if (idMax) {
+  //     category.id = idMax as number + 1;
+  //   } else {
+  //     category.id = 1;
+  //   }
+  //   this.Realm.write(() => {
+  //     this.Realm.create(Category.schema.name, category);
+  //   });
+  // }
 
-  public remove(id: number) {
+  public remove(id: string) {
    this.Realm.delete(id);
   }
 
@@ -38,8 +38,13 @@ export class CategoryRepository {
     }
   }
 
-  public getSingle(id: number) {
-    let categorys = this.Realm.objects(Category.schema.name).filtered('id=' + id);
+  public getSingle(id: string) {
+    let categorys = this.Realm.objects(Category.schema.name).filtered(`id="${id}"`);
+    return categorys[0];
+  }
+
+  public getSingleByIndex(index: number) {
+    let categorys = this.Realm.objects(Category.schema.name).filtered('index=' + index);
     return categorys[0];
   }
 

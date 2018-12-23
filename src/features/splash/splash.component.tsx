@@ -108,6 +108,7 @@ class SplashComponent extends React.Component<SplashProps, SplashState> {
   }
 
   public async componentDidMount() {
+    // this.props.checkDataLocalStart();
     if (Platform.OS === 'android') {
       try {
         const isRealm = await fs.exists(fs.DocumentDirectoryPath + '/default.realm');
@@ -131,7 +132,7 @@ class SplashComponent extends React.Component<SplashProps, SplashState> {
 
   public render() {
     return (
-      this.props.isShowSplash ? <SplashView /> : <RootStack />
+      this.props.isShowSplash ? <SplashView /> : this.props.isDataEmpty ? <DownloadComponent/> : <RootStack />
     );
   }
 }
